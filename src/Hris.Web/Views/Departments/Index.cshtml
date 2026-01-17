@@ -1,0 +1,40 @@
+@model IReadOnlyList<Hris.Web.Controllers.DepartmentsController.DepartmentIndexRow>
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<div class="page-title">
+    <div>
+        <h1>Departments</h1>
+        <div class="text-muted">Overview of departments and headcount</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th class="text-end">Employees</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var d in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@d.Name</td>
+                        <td class="text-end"><span class="badge badge-soft">@d.EmployeeCount</span></td>
+                        <td class="text-end">
+                            <a asp-action="Details" asp-route-id="@d.Id" class="btn btn-outline-light btn-sm">View</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

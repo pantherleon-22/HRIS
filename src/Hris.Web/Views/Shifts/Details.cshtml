@@ -1,0 +1,110 @@
+@model Hris.Web.Models.Shift
+
+@{
+    ViewData["Title"] = "Shift Details";
+}
+
+<div class="page-title">
+    <div>
+        <h1>Shift Details</h1>
+        <div class="text-muted">
+            <span class="badge badge-soft me-2">@Model.JobType.Name</span>
+            @Model.WorkDate.ToString("dd MMM yyyy")
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light btn-sm">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-light btn-sm">Back to List</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Shift Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="text-muted small">Job Type</div>
+                        <div class="fw-semibold"><span class="badge badge-soft">@Model.JobType.Name</span></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">Work Date</div>
+                        <div class="fw-semibold">@Model.WorkDate.ToString("dd MMMM yyyy")</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">Status</div>
+                        <div class="fw-semibold">
+                            @if (Model.Status == Hris.Web.Models.ShiftStatus.Open)
+                            {
+                                <span class="badge bg-success">Open</span>
+                            }
+                            else if (Model.Status == Hris.Web.Models.ShiftStatus.Closed)
+                            {
+                                <span class="badge bg-secondary">Closed</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Cancelled</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">Start Time</div>
+                        <div class="fw-semibold">@Model.StartTime.ToString(@"hh\:mm")</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">End Time</div>
+                        <div class="fw-semibold">@Model.EndTime.ToString(@"hh\:mm")</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">Duration</div>
+                        <div class="fw-semibold">@((Model.EndTime - Model.StartTime).TotalHours.ToString("0.0")) hours</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">Capacity</div>
+                        <div class="fw-semibold">@Model.Capacity positions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h6 class="mb-0">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light btn-sm">✏️ Edit Shift</a>
+                    <a asp-action="Assign" asp-route-id="@Model.Id" class="btn btn-outline-light btn-sm">➕ Assign Employee</a>
+                    <a href="#" class="btn btn-outline-light btn-sm">👥 View Applications</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">🗑️ Delete Shift</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Application Summary</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Applied</span>
+                    <span class="fw-semibold">—</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Approved</span>
+                    <span class="fw-semibold">—</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted small">Remaining Slots</span>
+                    <span class="fw-semibold">@Model.Capacity</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

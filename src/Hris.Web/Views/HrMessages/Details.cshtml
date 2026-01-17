@@ -1,0 +1,52 @@
+@model Hris.Web.Models.EmployeeMessage
+
+@{
+    ViewData["Title"] = "Message";
+}
+
+<div class="container-narrow">
+    <div class="page-title">
+        <div>
+            <h1>@Model.Subject</h1>
+            <div class="text-muted">From @Model.Employee?.FirstName @Model.Employee?.LastName (@Model.Employee?.Email)</div>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Index" class="btn btn-outline-light btn-sm">Back</a>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="text-muted small mb-2">Created @Model.CreatedAt.ToLocalTime().ToString("dd MMM yyyy HH:mm") • Status: <span class="badge badge-soft">@Model.Status</span></div>
+            <div>@Model.Body</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Reply</h5>
+        </div>
+        <div class="card-body">
+            @if (!string.IsNullOrWhiteSpace(Model.HrReply))
+            {
+                <div class="alert alert-success" role="alert">
+                    <div class="fw-semibold">Previous reply</div>
+                    <div>@Model.HrReply</div>
+                </div>
+            }
+
+            <form asp-action="Reply" method="post" class="mb-3">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="mb-2">
+                    <textarea name="reply" class="form-control" rows="5" placeholder="Write reply..."></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Send Reply</button>
+            </form>
+
+            <form asp-action="Close" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <button class="btn btn-outline-light" type="submit">Close Message</button>
+            </form>
+        </div>
+    </div>
+</div>

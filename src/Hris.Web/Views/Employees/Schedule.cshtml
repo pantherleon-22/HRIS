@@ -1,0 +1,87 @@
+@model Hris.Web.Controllers.EmployeesController.EmployeeScheduleVm
+
+@{
+    ViewData["Title"] = "2-Week Schedule";
+}
+
+<div class="container-narrow">
+    <div class="page-title">
+        <div>
+            <h1>@Model.EmployeeName</h1>
+            <div class="text-muted">Assigned shifts for the next 14 days</div>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-outline-light btn-sm">Back to Profile</a>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="text-muted small">Range</div>
+                    <div class="fw-semibold">@Model.FromDate.ToString("dd MMM yyyy") → @Model.ToDate.ToString("dd MMM yyyy")</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Change Start Date</div>
+                    <form method="get" class="d-flex gap-2">
+                        <input type="hidden" name="id" value="@Model.EmployeeId" />
+                        <input type="date" name="from" value="@Model.FromDate.ToString("yyyy-MM-dd")" class="form-control" />
+                        <button class="btn btn-outline-light" type="submit">Go</button>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Total Assigned</div>
+                    <div class="fw-semibold"><span class="badge badge-soft">@Model.TotalAssigned</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Schedule</h5>
+        </div>
+        <div class="card-body">
+        @if (!Model.Days.Any())
+        {
+            <div class="text-muted">No assigned shifts in the selected range.</div>
+        }
+        else
+        {
+            foreach (var day in Model.Days)
+            {
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="fw-semibold">@day.Date.ToString("dddd, dd MMMM yyyy")</div>
+                        <span class="badge badge-soft">@day.Items.Count</span>
+                    </div>
+                    <div class="table-responsive mt-2">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Job Type</th>
+                                    <th>Time</th>
+                                    <th class="text-end">Shift</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var item in day.Items)
+                            {
+                                <tr>
+                                    <td><span class="badge badge-soft">@item.JobType</span></td>
+                                    <td class="fw-semibold">@item.Start.ToString(@"hh\:mm") → @item.End.ToString(@"hh\:mm")</td>
+                                    <td class="text-end">
+                                        <a asp-controller="Shifts" asp-action="Details" asp-route-id="@item.ShiftId" class="btn btn-outline-light btn-sm">Open</a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        }
+        </div>
+    </div>
+</div>

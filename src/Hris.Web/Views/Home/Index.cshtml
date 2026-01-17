@@ -1,0 +1,174 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-narrow">
+    <div class="page-title">
+        <div>
+            <h1>HRIS Dashboard</h1>
+            <div class="text-muted">Human Resources Information System</div>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small mb-1">Total Employees</div>
+                            <h3 class="mb-0">@Model.TotalEmployees</h3>
+                        </div>
+                        <div class="fs-3">👥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small mb-1">Open Shifts</div>
+                            <h3 class="mb-0">@Model.OpenShifts</h3>
+                        </div>
+                        <div class="fs-3">📅</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small mb-1">Pending Applications</div>
+                            <h3 class="mb-0">@Model.PendingApplications</h3>
+                        </div>
+                        <div class="fs-3">⏳</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small mb-1">Active Departments</div>
+                            <h3 class="mb-0">@Model.ActiveDepartments</h3>
+                        </div>
+                        <div class="fs-3">🏢</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <a asp-controller="Employees" asp-action="Create" class="btn btn-outline-light w-100 text-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 me-3">➕</div>
+                                    <div>
+                                        <div class="fw-semibold">Add New Employee</div>
+                                        <div class="small text-muted">Register a new employee to the system</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="Shifts" asp-action="Create" class="btn btn-outline-light w-100 text-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 me-3">📋</div>
+                                    <div>
+                                        <div class="fw-semibold">Create New Shift</div>
+                                        <div class="small text-muted">Open a new shift slot for assignment</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="Shifts" asp-action="GenerateTwoWeek" class="btn btn-outline-light w-100 text-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 me-3">⚙️</div>
+                                    <div>
+                                        <div class="fw-semibold">Generate 2-Week Shifts</div>
+                                        <div class="small text-muted">Create shifts by day & hour template</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="Applications" asp-action="Index" class="btn btn-outline-light w-100 text-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 me-3">✅</div>
+                                    <div>
+                                        <div class="fw-semibold">Review Applications</div>
+                                        <div class="small text-muted">Approve or reject shift requests</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="HrMessages" asp-action="Index" class="btn btn-outline-light w-100 text-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 me-3">✉️</div>
+                                    <div>
+                                        <div class="fw-semibold">Employee Messages</div>
+                                        <div class="small text-muted">Answer questions and close threads</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="Departments" asp-action="Index" class="btn btn-outline-light w-100 text-start">
+                                <div class="d-flex align-items-center">
+                                    <div class="fs-4 me-3">🏷️</div>
+                                    <div>
+                                        <div class="fw-semibold">Departments</div>
+                                        <div class="small text-muted">Headcount and title breakdown</div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0">System Status</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Database</span>
+                        <span class="badge badge-soft">Connected</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Application</span>
+                        <span class="badge badge-soft">Running</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted small">Version</span>
+                        <span class="fw-semibold">1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

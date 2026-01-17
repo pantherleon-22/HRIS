@@ -1,0 +1,166 @@
+@model Hris.Web.Controllers.ShiftsController.GenerateTwoWeekVm
+
+@{
+    ViewData["Title"] = "Generate 2-Week Shifts";
+}
+
+<div class="page-title">
+    <div>
+        <h1>Generate 2-Week Shifts</h1>
+        <div class="text-muted">Define which days and hours to create shifts</div>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Index" class="btn btn-outline-light btn-sm">Back</a>
+    </div>
+</div>
+
+@if (Model.CreatedCount + Model.SkippedCount + Model.ErrorCount > 0)
+{
+    var alertClass = Model.ErrorCount > 0 ? "alert-warning" : "alert-success";
+    <div class="alert @alertClass" role="alert">
+        <div class="fw-semibold">Result</div>
+        <div>Created: <strong>@Model.CreatedCount</strong> · Skipped: <strong>@Model.SkippedCount</strong> · Errors: <strong>@Model.ErrorCount</strong></div>
+        @if (Model.CreatedCount == 0 && Model.SkippedCount > 0)
+        {
+            <div class="small text-muted mt-1">Looks like these shifts already existed and were skipped.</div>
+        }
+    </div>
+}
+
+<form asp-action="GenerateTwoWeek" method="post">
+    <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Plan Settings</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="StartDate" class="form-label">Start Date</label>
+                            <input asp-for="StartDate" type="date" class="form-control" />
+                            <div class="form-text">Creates shifts from Start Date to Start Date + 13 days</div>
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="JobTypeId" class="form-label">Job Type</label>
+                            <select asp-for="JobTypeId" class="form-select" asp-items="Model.JobTypes">
+                                <option value="">-- Select Job Type --</option>
+                            </select>
+                            <span asp-validation-for="JobTypeId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="EmployeeId" class="form-label">Auto-Assign To (Optional)</label>
+                            <select asp-for="EmployeeId" class="form-select" asp-items="Model.Employees">
+                                <option value="">-- Do not auto-assign --</option>
+                            </select>
+                            <div class="form-text">If selected, each created shift will be assigned to this employee.</div>
+                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Capacity" class="form-label">Capacity</label>
+                            <input asp-for="Capacity" type="number" min="1" class="form-control" />
+                            <span asp-validation-for="Capacity" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Status" class="form-label">Status</label>
+                            <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<Hris.Web.Models.ShiftStatus>()"></select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" asp-for="SkipIfExists" />
+                                <label class="form-check-label" asp-for="SkipIfExists">Skip if an identical shift already exists</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Days & Hours</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th class="text-center">Enable</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @for (var i = 0; i < Model.Days.Count; i++)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">
+                                        @Model.Days[i].Label
+                                        <input type="hidden" asp-for="Days[i].DayOfWeek" />
+                                        <input type="hidden" asp-for="Days[i].Label" />
+                                    </td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox" asp-for="Days[i].Enabled" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="time" asp-for="Days[i].Start" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="time" asp-for="Days[i].End" />
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end mt-3">
+                <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">Generate Shifts</button>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h6 class="mb-0">Result</h6>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Created</span>
+                        <span class="fw-semibold">@Model.CreatedCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted small">Skipped</span>
+                        <span class="fw-semibold">@Model.SkippedCount</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted small">Errors</span>
+                        <span class="fw-semibold">@Model.ErrorCount</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">💡 Tips</h6>
+                    <ul class="small text-muted mb-0">
+                        <li>Enable the days you want in the 2-week range</li>
+                        <li>Set the hours for each enabled day</li>
+                        <li>Use “Skip if exists” to avoid duplicates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

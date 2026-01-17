@@ -1,0 +1,124 @@
+@model Hris.Web.Controllers.ShiftsController.AssignShiftVm
+
+@{
+    ViewData["Title"] = "Assign Shift";
+}
+
+<div class="page-title">
+    <div>
+        <h1>Assign Shift</h1>
+        <div class="text-muted">
+            <span class="badge badge-soft me-2">@Model.JobType</span>
+            @Model.WorkDate.ToString("dd MMM yyyy") · @Model.StartTime.ToString("hh\\:mm") → @Model.EndTime.ToString("hh\\:mm")
+        </div>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Details" asp-route-id="@Model.ShiftId" class="btn btn-outline-light btn-sm">Back</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <form asp-action="Assign" asp-route-id="@Model.ShiftId" method="post">
+            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Assignment</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label class="form-label">Employee</label>
+                            <select name="EmployeeId" class="form-select">
+                                <option value="">-- Select Employee --</option>
+                                @foreach (var e in Model.Employees)
+                                {
+                                    if (Model.SelectedEmployeeId == e.Id)
+                                    {
+                                        <option value="@e.Id" selected>@e.DisplayName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@e.Id">@e.DisplayName</option>
+                                    }
+                                }
+                            </select>
+                            <span class="text-danger">@Html.ValidationMessage("EmployeeId")</span>
+                            <div class="form-text">Capacity remaining: @Model.Remaining</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+                <a asp-action="Details" asp-route-id="@Model.ShiftId" class="btn btn-outline-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">Assign</button>
+            </div>
+        </form>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0">Currently Assigned</h5>
+            </div>
+            <div class="card-body">
+                @if (!Model.AssignedEmployees.Any())
+                {
+                    <div class="text-muted">No employees assigned yet.</div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th class="text-end">Profile</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var a in Model.AssignedEmployees)
+                            {
+                                <tr>
+                                    <td class="fw-semibold">@a.DisplayName</td>
+                                    <td><a href="mailto:@a.Email">@a.Email</a></td>
+                                    <td class="text-end">
+                                        <a asp-controller="Employees" asp-action="Details" asp-route-id="@a.EmployeeId" class="btn btn-outline-light btn-sm">Open</a>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">Summary</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Capacity</span>
+                    <span class="fw-semibold">@Model.Capacity</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Assigned</span>
+                    <span class="fw-semibold">@Model.AssignedCount</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted small">Remaining</span>
+                    <span class="fw-semibold">@Model.Remaining</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

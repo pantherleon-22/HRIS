@@ -1,0 +1,40 @@
+# HRIS (ASP.NET Core MVC + SQL Server)
+
+Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** tabanlı bir başlangıç iskeleti içerir.
+
+## Proje Yapısı
+
+- `src/Hris.Web/Controllers` → MVC controller'lar
+- `src/Hris.Web/Views` → Razor view'lar
+- `src/Hris.Web/Models` → Entity/model sınıfları
+- `src/Hris.Web/Data` → `HrisDbContext` ve EF migrations
+
+## Kurulum
+
+1) Bağlantı cümlesi
+- `src/Hris.Web/appsettings.json` içindeki `ConnectionStrings:DefaultConnection` değerini kendi SQL Server'ına göre güncelle.
+- Varsayılan: LocalDB (Windows)
+
+2) Araçları geri yükle
+
+- `dotnet tool restore`
+
+3) Veritabanını oluştur
+
+- `dotnet tool run dotnet-ef database update --project src/Hris.Web --startup-project src/Hris.Web`
+
+4) Uygulamayı çalıştır
+
+- `dotnet run --project src/Hris.Web`
+
+## Güvenlik Notları (SQL Injection)
+
+- Veri erişimi **EF Core** üzerinden yapıldığı için sorgular parametreli çalışır; string birleştirerek SQL üretme yoktur.
+- Eğer ileride ham SQL yazmanız gerekirse:
+  - `FromSqlInterpolated` / `ExecuteSqlInterpolated` gibi **parametreli** API'leri kullanın.
+  - Asla kullanıcı girdisini string birleştirip SQL'e gömmeyin.
+
+## Hazır Sayfalar
+
+- `/Employees` CRUD
+- `/Shifts` CRUD

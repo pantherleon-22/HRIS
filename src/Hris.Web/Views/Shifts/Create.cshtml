@@ -1,0 +1,85 @@
+@model Hris.Web.Models.Shift
+
+@{
+    ViewData["Title"] = "Create Shift";
+}
+
+<div class="page-title">
+    <div>
+        <h1>Create Shift</h1>
+        <div class="text-muted">Open a new shift slot for assignment</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+            
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Shift Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="JobTypeId" class="form-label">Job Type</label>
+                            <select asp-for="JobTypeId" class="form-select" asp-items="ViewBag.JobTypeId">
+                                <option value="">-- Select Job Type --</option>
+                            </select>
+                            <span asp-validation-for="JobTypeId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="WorkDate" class="form-label">Work Date</label>
+                            <input asp-for="WorkDate" class="form-control" type="date" />
+                            <span asp-validation-for="WorkDate" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="StartTime" class="form-label">Start Time</label>
+                            <input asp-for="StartTime" class="form-control" type="time" />
+                            <span asp-validation-for="StartTime" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="EndTime" class="form-label">End Time</label>
+                            <input asp-for="EndTime" class="form-control" type="time" />
+                            <span asp-validation-for="EndTime" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Capacity" class="form-label">Capacity</label>
+                            <input asp-for="Capacity" class="form-control" type="number" min="1" placeholder="1" />
+                            <span asp-validation-for="Capacity" class="text-danger"></span>
+                            <div class="form-text">Number of positions</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Status" class="form-label">Status</label>
+                            <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<Hris.Web.Models.ShiftStatus>()"></select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end">
+                <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+                <button type="submit" class="btn btn-primary">Create Shift</button>
+            </div>
+        </form>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted mb-3">💡 Quick Tips</h6>
+                <ul class="small text-muted mb-0">
+                    <li>Open shifts become visible to eligible employees</li>
+                    <li>Capacity determines max assignments</li>
+                    <li>Closed shifts prevent new applications</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

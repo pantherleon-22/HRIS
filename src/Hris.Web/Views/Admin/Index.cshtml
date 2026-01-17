@@ -1,0 +1,98 @@
+@model Hris.Web.Controllers.AdminController.AdminIndexVm
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<div class="container-narrow">
+    <div class="page-title">
+        <div>
+            <h1>Admin</h1>
+            <div class="text-muted">Hesap yönetimi (şifre atama / HR oluşturma)</div>
+        </div>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-light btn-sm" asp-controller="Home" asp-action="Index">Dashboard</a>
+            <a class="btn btn-primary btn-sm" asp-action="CreateHr">+ Yeni HR</a>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <div class="fw-semibold">Mevcut Hesaplar</div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-dark table-hover mb-0 align-middle">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Employee</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in Model.Accounts)
+                        {
+                            <tr>
+                                <td>@a.Email</td>
+                                <td><span class="badge bg-secondary">@a.Role</span></td>
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(a.EmployeeName))
+                                    {
+                                        <span class="text-muted">@a.EmployeeName</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">-</span>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <a class="btn btn-outline-light btn-sm" asp-action="SetPassword" asp-route-id="@a.Id">Şifre Ata</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <div class="fw-semibold">Hesabı Olmayan Çalışanlar</div>
+        </div>
+        <div class="card-body p-0">
+            @if (Model.EmployeesWithoutAccount.Count == 0)
+            {
+                <div class="p-3 text-muted">Tüm çalışanların hesabı var.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover mb-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Email</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var e in Model.EmployeesWithoutAccount)
+                            {
+                                <tr>
+                                    <td>@e.FullName</td>
+                                    <td>@e.Email</td>
+                                    <td class="text-end">
+                                        <a class="btn btn-primary btn-sm" asp-action="CreateEmployeeAccount" asp-route-id="@e.Id">Hesap Oluştur</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

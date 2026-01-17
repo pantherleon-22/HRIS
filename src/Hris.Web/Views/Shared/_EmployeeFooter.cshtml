@@ -1,0 +1,47 @@
+@using System.Security.Claims
+
+<section class="employee-footer" aria-label="Employee footer">
+    <div class="employee-footer__wrap">
+        <div class="employee-footer__grid">
+            <div>
+                <div class="employee-footer__brand">
+                    <div class="employee-footer__brand-mark">S</div>
+                    <div>
+                        <div class="employee-footer__brand-title">Six flags</div>
+                        <div class="employee-footer__brand-sub">Çalışan Portalı</div>
+                    </div>
+                </div>
+
+                <div class="employee-footer__links">
+                    <div class="employee-footer__links-col">
+                        <a asp-controller="EmployeePortal" asp-action="Index">Vardiyalarım</a>
+                        <a asp-controller="EmployeePortal" asp-action="OpenShifts">Açık Vardiyalar</a>
+                        <a asp-controller="EmployeePortal" asp-action="AskHr">İK'ya Sor</a>
+                    </div>
+                    <div class="employee-footer__links-col">
+                        <a asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+                        <a asp-controller="Account" asp-action="ForgotPassword">Şifremi Unuttum</a>
+                        <a asp-controller="Home" asp-action="Privacy">Gizlilik</a>
+                    </div>
+                    <div class="employee-footer__links-col">
+                        <a asp-controller="Shifts" asp-action="Index">Vardiyalar (Liste)</a>
+                        <a asp-controller="Employees" asp-action="Schedule" asp-route-id="@User.FindFirstValue(Hris.Web.Controllers.AccountController.CustomClaims.EmployeeId)">Takvimim</a>
+                        <a asp-controller="Account" asp-action="Login">Giriş</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="employee-footer__contact">
+                <div class="employee-footer__contact-title">İletişim</div>
+                <div class="text-muted small mb-2">Bu bölüm görsel amaçlıdır (demo).</div>
+                <form action="#" method="post" class="employee-footer__form" onsubmit="return false;">
+                    <input class="form-control" placeholder="Ad Soyad" />
+                    <input class="form-control" placeholder="E-posta" />
+                    <textarea class="form-control" rows="4" placeholder="Mesaj"></textarea>
+
+                    <button type="button" class="btn btn-primary employee-footer__submit">Mesaj Gönder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

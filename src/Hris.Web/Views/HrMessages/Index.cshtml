@@ -1,0 +1,59 @@
+@model IReadOnlyList<Hris.Web.Controllers.HrMessagesController.MessageRow>
+
+@{
+    ViewData["Title"] = "HR Messages";
+}
+
+<div class="container-narrow">
+    <div class="page-title">
+        <div>
+            <h1>Messages</h1>
+            <div class="text-muted">Employee questions & HR replies</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Inbox</h5>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="text-muted">No messages.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var row in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-semibold">@row.EmployeeName</div>
+                                    <div class="text-muted small">@row.Email</div>
+                                </td>
+                                <td class="fw-semibold">@row.Subject</td>
+                                <td><span class="badge badge-soft">@row.Status</span></td>
+                                <td class="text-muted small">@row.CreatedAt.ToLocalTime().ToString("dd MMM yyyy HH:mm")</td>
+                                <td class="text-end">
+                                    <a asp-action="Details" asp-route-id="@row.Id" class="btn btn-outline-light btn-sm">Open</a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

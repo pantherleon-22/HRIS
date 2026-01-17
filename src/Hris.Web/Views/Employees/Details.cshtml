@@ -1,0 +1,118 @@
+@model Hris.Web.Models.Employee
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div class="page-title">
+    <div>
+        <h1>@Model.FullName</h1>
+        <div class="text-muted">@Model.Title.Name · @Model.Department.Name</div>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-light">Back to List</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Personal Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="text-muted small">First Name</div>
+                        <div class="fw-semibold">@Model.FirstName</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small">Last Name</div>
+                        <div class="fw-semibold">@Model.LastName</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small">Email Address</div>
+                        <div class="fw-semibold"><a href="mailto:@Model.Email">@Model.Email</a></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small">Phone Number</div>
+                        <div class="fw-semibold">@(Model.Phone ?? "—")</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0">Employment Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="text-muted small">Hire Date</div>
+                        <div class="fw-semibold">@Model.HireDate.ToString("MMMM dd, yyyy")</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">Company Experience</div>
+                        <div class="fw-semibold">@Model.CompanyExperienceYears.ToString("0.0") years</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-muted small">External Experience</div>
+                        <div class="fw-semibold">@Model.ExternalExperienceYears years</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small">Department</div>
+                        <div><span class="badge badge-soft">@Model.Department.Name</span></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-muted small">Job Title</div>
+                        <div><span class="badge badge-soft">@Model.Title.Name</span></div>
+                    </div>
+                    <div class="col-12">
+                        <hr class="my-2" />
+                        <div class="text-muted small">Total Experience</div>
+                        <div class="fs-5 fw-bold" style="color: var(--hris-primary);">@Model.TotalExperienceYears.ToString("0.0") years</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    <a asp-action="Schedule" asp-route-id="@Model.Id" class="btn btn-outline-light btn-sm">🗓️ 2-Week Schedule</a>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h6 class="mb-0">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-light btn-sm">✏️ Edit Profile</a>
+                    <a href="#" class="btn btn-outline-light btn-sm">📅 View Schedule</a>
+                    <a href="#" class="btn btn-outline-light btn-sm">📊 Performance</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger btn-sm">🗑️ Delete</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h6 class="text-muted mb-2">📋 Activity Summary</h6>
+                <div class="small text-muted">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Shifts Completed:</span>
+                        <span class="fw-semibold">—</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Pending Applications:</span>
+                        <span class="fw-semibold">—</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Disciplinary Actions:</span>
+                        <span class="fw-semibold">—</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
