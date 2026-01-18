@@ -38,3 +38,13 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 
 - `/Employees` CRUD
 - `/Shifts` CRUD
+
+- ## Projeden örnek sayfalar
+- <img width="1892" height="863" alt="image" src="https://github.com/user-attachments/assets/738c5c74-4911-4b2f-a10a-3b5eaca21bc7" />
+
+
+<img width="1886" height="818" alt="image" src="https://github.com/user-attachments/assets/fd5e1c94-462b-4d16-a341-63f202fc6b31" />
+
+
+
+
