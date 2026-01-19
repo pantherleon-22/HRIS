@@ -50,6 +50,9 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 ### Çalışan Profili
 - <img width="1903" height="843" alt="image" src="https://github.com/user-attachments/assets/20e27c7f-bb99-4ca3-b730-899bedb4ee00" />
 
+## Youtube video
+https://www.youtube.com/@ahmetergin9782/posts
+
 
 
 
