@@ -39,7 +39,8 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
  Employee gibi bir kullanıcı eğer endpoint e url girmek isterse aşşağıdaki gibi farklı bir sekmede access denied sayfası yer alır bu sayede yetkisiz
  girişlerin önüne geçmiş oluruz.
  
-- <img width="1145" height="292" alt="image" src="https://github.com/user-attachments/assets/5579b002-237f-460a-b751-3be02119dd32" />
+- <img width="1129" height="330" alt="image" src="https://github.com/user-attachments/assets/d261f846-fdc5-4a43-9c2a-fcbb805d0b7f" />
+
 
 #### Veri Tabanının gizliliği
 Çalışan ve yönetici bilgileri kurum tarafından gizli tutulması gerektiği için SHA-256 token ile veri tabanı bilgileri token olarak saklanır.
