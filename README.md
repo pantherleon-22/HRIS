@@ -59,6 +59,8 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 
 ### Admin Sekmesi
 
+En geniş yetkiye sahip sitemin tümüne hakim kullanıcı yapısıdır.
+
 | Ana Panel | Sol Menü |
 |-----------|----------|
 | ![](https://github.com/user-attachments/assets/1d135887-f9fe-4e58-9ee3-528efc8fb77b) | ![](https://github.com/user-attachments/assets/5a12f4cf-8be9-4582-aad1-3f684cf87bea) |
@@ -67,6 +69,8 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 
 ### HR (İnsan Kaynakları Sekmesi)
 
+Admin ile hemen hemen aynı yetkilere sahip olmasına rağmen admin sekmesinden şifre değiştirme yetkisi yoktur.
+
 | Ana Panel | Sol Menü |
 |-----------|----------|
 | ![](https://github.com/user-attachments/assets/64793c93-f2c5-4f59-a2b2-c3ffd9fecf4b) | ![](https://github.com/user-attachments/assets/8cf9a9fe-e065-4691-8b35-3774f8e49d01) |
@@ -74,6 +78,7 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 ---
 
 ### Çalışan Profili (Örnek)
+Admin ve İnsan kaynaklarından farklı olarak kendine özgü shift request'lerin olduğu ancak daha kısıtlı bir çalışan yapısıdır.
 
 | Profil Sayfası | Mobil / Dar Görünüm |
 |----------------|---------------------|
