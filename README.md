@@ -86,7 +86,10 @@ Admin ve İnsan kaynaklarından farklı olarak kendine özgü shift request'leri
 
 
 ## Youtube video
-https://www.youtube.com/@ahmetergin9782/posts
+-ilk video
+https://www.youtube.com/watch?v=30lhxeEpUc4
+-ikinci video
+https://www.youtube.com/watch?v=JL5S4fJMjlo
 
 
 
