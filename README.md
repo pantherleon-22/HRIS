@@ -34,7 +34,7 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
   - `FromSqlInterpolated` / `ExecuteSqlInterpolated` gibi **parametreli** API'leri kullanın.
   - Asla kullanıcı girdisini string birleştirip SQL'e gömmeyin.
 
-### Preemptive Broken Access Control
+### Preemptive(önleyici) Broken Access Control
 
  Employee gibi bir kullanıcı eğer endpoint e url girmek isterse aşşağıdaki gibi farklı bir sekmede access denied sayfası yer alır bu sayede yetkisiz
  girişlerin önüne geçmiş oluruz.
@@ -52,21 +52,29 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 - `/Employees` CRUD
 - `/Shifts` CRUD
 
-- ## Projeden örnek sayfalar
-- 
-- ### Admin Sekmesi
--  <img width="1896" height="867" alt="image" src="https://github.com/user-attachments/assets/1d135887-f9fe-4e58-9ee3-528efc8fb77b" />
+## 🖥️ Projeden Örnek Sayfalar
 
+---
 
-- <img width="393" height="864" alt="image" src="https://github.com/user-attachments/assets/5a12f4cf-8be9-4582-aad1-3f684cf87bea" />
-## HR(İnsan Kaynakları sekmesi)
+### Admin Sekmesi
 
-- <img width="392" height="868" alt="image" src="https://github.com/user-attachments/assets/8cf9a9fe-e065-4691-8b35-3774f8e49d01" />
+| Ana Panel | Sol Menü |
+|-----------|----------|
+| ![](https://github.com/user-attachments/assets/1d135887-f9fe-4e58-9ee3-528efc8fb77b) | ![](https://github.com/user-attachments/assets/5a12f4cf-8be9-4582-aad1-3f684cf87bea) |
 
+---
 
-### Çalışan Profili (örnek)
-- <img width="1896" height="864" alt="image" src="https://github.com/user-attachments/assets/daecda64-72b9-41d6-828c-45e0921de495" />
-- <img width="397" height="868" alt="image" src="https://github.com/user-attachments/assets/87207d47-6ffc-49fe-a431-ea1412c80162" />
+### HR (İnsan Kaynakları Sekmesi)
+
+![](https://github.com/user-attachments/assets/8cf9a9fe-e065-4691-8b35-3774f8e49d01)
+
+---
+
+### Çalışan Profili (Örnek)
+
+| Profil Sayfası | Mobil / Dar Görünüm |
+|----------------|---------------------|
+| ![](https://github.com/user-attachments/assets/daecda64-72b9-41d6-828c-45e0921de495) | ![](https://github.com/user-attachments/assets/87207d47-6ffc-49fe-a431-ea1412c80162) |
 
 
 ## Youtube video
