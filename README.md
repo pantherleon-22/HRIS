@@ -66,7 +66,9 @@ Bu repo, insan kaynakları yönetim sistemi için **ASP.NET Core MVC (.NET 8)** 
 
 ### HR (İnsan Kaynakları Sekmesi)
 
-![](https://github.com/user-attachments/assets/8cf9a9fe-e065-4691-8b35-3774f8e49d01)
+| Ana Panel | Sol Menü |
+|-----------|----------|
+| ![](https://github.com/user-attachments/assets/64793c93-f2c5-4f59-a2b2-c3ffd9fecf4b) | ![](https://github.com/user-attachments/assets/8cf9a9fe-e065-4691-8b35-3774f8e49d01) |
 
 ---
 
